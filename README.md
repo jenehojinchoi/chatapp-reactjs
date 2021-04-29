@@ -1,2 +1,3 @@
 # Chatapp-reactjs
-First version can be found here: https://chatapp-reactjs-jhc.netlify.app
+- used react-chat-engine
+- implemented netlify to deploy and publish website
