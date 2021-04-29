@@ -1,19 +1,29 @@
 import { ChatEngine } from 'react-chat-engine';
-import LoginForm from './components/LoginForm';
+
+import LoginForm from './routes/LoginForm.jsx';
 import ChatFeed from './components/ChatFeed.jsx';
+import SignUpForm from './routes/SignUpForm.jsx';
+
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import './App.css';
+import { config } from './config';
 
 const App = () => {
-    if (!localStorage.getItem('username')) return <LoginForm />
-
     return (
-        <ChatEngine 
-            height='100vh'
-            projectID='1d527c6d-f4fc-45b1-aa64-4bb991feeb0b'
-            userName={localStorage.getItem('username')}
-            userSecret={localStorage.getItem('password')}
-            renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />}
-        />
+        <Router>
+            <Route exact path='/signup' component={SignUpForm} />
+            <Route exact path='/login' component={LoginForm} />
+            <Route exact path='/'>
+                <ChatEngine 
+                    height='100vh'
+                    projectID= {config.ProjectID} 
+                    userName={localStorage.getItem('username')}
+                    userSecret={localStorage.getItem('password')}
+                    renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />}
+                />
+            </Route>
+        </Router>
     )
 }
 

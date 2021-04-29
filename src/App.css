@@ -3,14 +3,17 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, '.SFNSText-Regular', sans-serif;
     letter-spacing: 0.5px;
     font-weight: 300;
+    border: none !important;
   }
   
   .ce-chat-list {
     background-color: rgb(240, 240, 240) !important;
+    border: none;
   }
   
   .ce-chats-container {
     background-color: rgb(240, 240, 240) !important;
+    border: none;
   }
   
   .ce-active-chat-card {
@@ -22,7 +25,7 @@
   .ce-chat-subtitle-text {
     color: #595959 !important;
   }
-  
+
   .ce-chat-form-container {
     padding-bottom: 20px !important;
   }
@@ -73,7 +76,6 @@
     height: 100%;
     width: 100%;
     overflow: scroll;
-    /* background-color: rgb(240, 240, 240); */
   }
   
   .chat-title-container {
@@ -131,7 +133,6 @@
     object-fit: cover;
     border-radius: 6px;
     height: 30vw;
-    /* width: 30vw; */
     max-height: 200px;
     max-width: 200px;
     min-height: 100px;
@@ -259,7 +260,7 @@
     font-weight: 400;
   }
   
-  .button {
+  .startBtn {
     border-radius: 4px;
     border: none;
     background-color: white;
@@ -274,13 +275,34 @@
     height: 50px;
   }
 
-  .button span {
+  .startBtn > a:link, a:visited {
+    text-decoration: none;
+    color: black;
+  }
+
+  .noAccountBtn, .alreadyAccountBtn{
+    border-radius: 4px;
+    border: none;
+    background-color: white;
+    color: black;
+    text-align: center;
+    font-size: 15px;
+    width: 200px;
+    transition: all 0.4s;
+    cursor: pointer;
+    margin: 5px;
+    width: 90%;
+    height: 50px;
+  }
+
+  .startBtn span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.4s;
   }
-  .button span:after {
+
+  .startBtn span:after {
     content: '\00bb';
     position: absolute;
     opacity: 0;
@@ -288,10 +310,12 @@
     right: -20px;
     transition: 0.5s;
   }
-  .button:hover span {
+
+  .startBtn:hover span {
     padding-right: 25px;
   }
-  .button:hover span:after {
+
+  .startBtn:hover span:after {
     opacity: 1;
     right: 0;
   }

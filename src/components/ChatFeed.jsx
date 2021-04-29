@@ -1,4 +1,3 @@
-// import { ConsoleSqlOutlined } from '@ant-design/icons';
 import MessageForm from './MessageForm';
 import MyMessage from './MyMessage';
 import TheirMessage from './TheirMessage';
@@ -6,6 +5,7 @@ import TheirMessage from './TheirMessage';
 const ChatFeed = (props) => {
     const { chats, activeChat, userName, messages } = props;
     const chat = chats && chats[activeChat];
+
     const renderReadReceipts = (message, isMyMessage) => {
         return chat.people.map((person, index) => person.last_read === message.id && (
             <div 
@@ -20,29 +20,51 @@ const ChatFeed = (props) => {
     }
 
     const renderMessages = () => {
-        const keys = Object.keys(messages);
-        return keys.map((key, index) => {
-            const message = messages[key];
-            const lastMessageKey = index === 0 ? null : keys[index-1];
-            const isMyMessage = userName === message.sender.username;
-            return (
-                <div key={`msg_${index}`} style={{ width: '100%' }}>
-                    <div className="message-block">
-                        {
-                            isMyMessage
-                            ? <MyMessage message={message}/>
-                            : <TheirMessage message={message} lastMessage={messages[lastMessageKey]}/>
-                        }
+        console.log('hello renderMessages');
+        try {
+            const keys = Object.keys(messages);
+            return keys.map((key, index) => {
+            
+                const message = messages[key];
+                console.log(message);
+                const lastMessageKey = index === 0 ? null : keys[index-1];
+
+                let isMyMessage = false;
+                if ( message.sender !== null ) {
+                    isMyMessage = userName === message.sender.username;
+                } else {
+                    message.sender = {
+                        'avatar': null,
+                        'custom_json': {},
+                        'first_name': 'Jene Hojin',
+                        'is_online': true,
+                        'last_name': 'Choi',
+                        'username' : 'jene',
+                    }
+                }
+
+                return (
+                    <div key={`msg_${index}`} histyle={{ width: '100%' }}>
+                        <div className="message-block">
+                            {
+                                isMyMessage
+                                ? <MyMessage message={message}/>
+                                : <TheirMessage message={message} lastMessage={messages[lastMessageKey]}/>
+                            }
+                        </div>
+                        <div className="read-receipts" style={{ 
+                            marginRight : isMyMessage ? '18px' : '0px',
+                            marginLeft : isMyMessage ?  '0px' : '68px'
+                        }}>
+                            {renderReadReceipts(message, isMyMessage)}
+                        </div>
                     </div>
-                    <div className="read-receipts" style={{ 
-                        marginRight : isMyMessage ? '18px' : '0px',
-                        marginLeft : isMyMessage ?  '0px' : '68px'
-                    }}>
-                        {renderReadReceipts(message, isMyMessage)}
-                    </div>
-                </div>
+                    )
+                }
             )
-        })
+        } catch (error) {
+            console.log(error);
+        }
     }
     renderMessages();
 
